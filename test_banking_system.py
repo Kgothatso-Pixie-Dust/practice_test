@@ -9,16 +9,20 @@ class TestBankingSystem(unittest.TestCase):
             'John': {'balance': 1000},
             'Jane': {'balance': 500}
         }
+        
+    
 
     def test_deposit(self):
         deposit(self.accounts['John'], 200)
         self.assertEqual(self.accounts['John']['balance'], 1200)
+        deposit(self.accounts['Jane'], 200)
+        self.assertEqual(self.accounts['John']['balance'], 1200)
 
     def test_withdraw(self):
         withdraw(self.accounts['John'], 500)
-        self.assertEqual(self.accounts['John']['balance'], 700)
+        self.assertEqual(self.accounts['John']['balance'], 500)
         withdraw(self.accounts['John'], 1000)
-        self.assertEqual(self.accounts['John']['balance'], 700)  # Insufficient funds
+        self.assertEqual(self.accounts['John']['balance'], 500)  # Insufficient funds
 
     def test_transfer(self):
         transfer(self.accounts['John'], self.accounts['Jane'], 300)
