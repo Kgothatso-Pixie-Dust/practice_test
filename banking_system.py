@@ -9,29 +9,37 @@ def deposit(account: dict, amount: float)-> None:
 # Function to withdraw money from an account
 def withdraw(account: dict, amount: float) -> None:
     res = account['balance'] - amount 
-    if amount < account['balance']:
-        return res 
+    if amount > account['balance']:
+        return (account.update({'balance': res * -1})) 
     else:
-        return res
-    
+        return account.update({'balance': res})   
 
-    return account.update({'balance': res})
 
 # Function to transfer money between two accounts
 def transfer(from_account: dict, to_account: dict, amount: float) -> None:
-    pass
+    ans = from_account['balance'] - amount
+    fin = to_account['balance'] + amount
+    return from_account.update({'balance': ans}) or to_account.update({'balance': fin})
+
 
 # Function to add a new account to the system
 def add_account(accounts: dict, owner: str, initial_balance: float) -> None:
-    new = accounts.update({owner: initial_balance})
-    return new
+    # accounts[owner] = accounts[]
+    if owner in accounts:
+        return None
+    else:
+        return accounts.update({owner: {'balance': initial_balance}})
+
+    # diction = {"sam": {'hello': 'world'}}
+    # return accounts.update({owner: {'balance': initial_balance}})
+
 
 # Function to find an account by owner's name
 def find_account(accounts: dict, owner: str) -> dict:
-    if accounts[owner] not in accounts:
-        return None
+    if owner in accounts:
+        return accounts[owner]
     else:
-        accounts[owner]
+        return None
         
 
 # Function to display all accounts in the system
